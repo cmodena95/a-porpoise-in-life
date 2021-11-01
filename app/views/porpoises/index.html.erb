@@ -1,0 +1,9 @@
+<% if policy(Porpoise).create? %>
+    <ul>
+        <% @porpoises.each do |porpoise| %>
+            <li><%= porpoise.name %></li>
+            <li><%= porpoise.species %></li>
+            <li><%= porpoise.location %></li>
+        <% end %>
+    </ul>
+<% end %>
