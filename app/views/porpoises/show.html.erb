@@ -3,6 +3,12 @@
 <p><%= @porpoise.location %></p>
 <p>€<%= number_with_precision(@porpoise.price, precision: 2) %> per day</p>
 
+<%= simple_form_for ([@porpoise, @booking]) do |f| %>
+    <%= f.input :start_date %>
+    <%= f.input :end_date %>
+    <%= f.submit "Book #{@porpoise.name}", class: "" %>
+<% end %>
+
 
 <%= link_to "Edit", edit_porpoise_path(@porpoise.id) %>
 <%= link_to "Delete", porpoise_path(@porpoise.id), method: :delete, data: { confirm: "Are you sure you want to delete #{@porpoise.name}?" } %>

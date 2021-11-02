@@ -16,4 +16,28 @@
     </ul>
 <% end %>
 
+<h1>Received bookings</h1>
+<% if policy(Booking).create? %>
+    <ul>
+        <% @received_bookings.each do |booking| %>
+            <li class="flex"><%= booking.porpoise.name %> (<%= booking.start_date %> to <%= booking.end_date %>)
+                <% if booking.status == "pending" %>
+                    <div class="tag pending">Pending</div>
+                    <%= link_to booking_path(booking, query: "accepted"), method: :patch, data: { confirm: "Are you sure?" } do %>
+                        <i class="accept-icon fas fa-check-circle"></i>
+                    <% end %>
+                    <%= link_to booking_path(booking, query: "declined"), method: :patch, data: { confirm: "Are you sure?" } do %>
+                        <i class="reject-icon fas fa-times-circle"></i>
+                    <% end %>
+                <% elsif booking.status == "accepted" %>
+                    <div class="tag accepted">Accepted</div>
+                <% elsif booking.status == "declined" %>
+                    <div class="tag declined">Declined</div>
+                <% end %>
+            </li>
+        <% end %>
+    </ul>
+<% end %>
+
+
 <%= link_to "Back", index_path %>

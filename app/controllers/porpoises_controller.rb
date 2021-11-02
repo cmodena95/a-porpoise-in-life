@@ -5,6 +5,7 @@ class PorpoisesController < ApplicationController
     
     def show
         @porpoise = Porpoise.find(params[:id])
+        @booking = Booking.new
         authorize @porpoise
     end
 

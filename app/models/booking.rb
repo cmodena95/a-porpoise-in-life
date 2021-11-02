@@ -6,6 +6,7 @@ class Booking < ApplicationRecord
 
   validates :start_date, :end_date, presence: true
   validate :end_date_after_start_date
+  validate :not_past_date
 
   enum status: [ :pending, :accepted, :declined ]
 
@@ -25,6 +26,12 @@ class Booking < ApplicationRecord
 
     if end_date < start_date
       errors.add(:end_date, 'End date must not be before start date')
+    end
+  end
+
+  def not_past_date
+    if self.start_date < Date.today
+      errors.add(:start_date, 'Cannot be in the past')
     end
   end
 end

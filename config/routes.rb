@@ -10,5 +10,9 @@ Rails.application.routes.draw do
   patch 'porpoises/:id', to: 'porpoises#update'
   delete 'porpoises/:id', to: 'porpoises#destroy'
 
-  resources :bookings, only: [:index]
+  resources :porpoises do
+    resources :bookings, only: [:create]
+  end
+
+  resources :bookings, only: [:index, :update]
 end
