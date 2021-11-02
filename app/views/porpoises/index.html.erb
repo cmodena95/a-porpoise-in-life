@@ -1,9 +1,11 @@
 <% if policy(Porpoise).create? %>
     <ul>
         <% @porpoises.each do |porpoise| %>
-            <li><%= porpoise.name %></li>
-            <li><%= porpoise.species %></li>
-            <li><%= porpoise.location %></li>
+            <%= link_to porpoise_path(porpoise.id) do %>
+                <li><%= porpoise.name %> - <%= porpoise.species %> (<%= porpoise.location %>)</li>
+            <% end %>
         <% end %>
     </ul>
+
+    <%= link_to "New porpoise", porpoises_new_path %>
 <% end %>

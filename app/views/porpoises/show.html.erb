@@ -1,0 +1,8 @@
+<p><%= @porpoise.name %></p>
+<p><%= @porpoise.species %></p>
+<p><%= @porpoise.location %></p>
+<p>€<%= number_with_precision(@porpoise.price, precision: 2) %> per day</p>
+
+
+<%= link_to "Edit", edit_porpoise_path(@porpoise.id) %>
+<%= link_to "Back", index_path %>
