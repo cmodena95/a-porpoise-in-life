@@ -1,0 +1,25 @@
+.tag {
+    font-size: 0.75em;
+    height: 25px;
+    width: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    margin-left: 8px;
+}
+
+.pending {
+    background-color: rgb(255, 210, 126);
+    border: 1px solid rgb(255, 185, 54);
+}
+
+.accepted {
+    background-color:rgb(58, 214, 58);
+    border: 1px solid rgb(58, 150, 2);
+}
+
+.declined {
+    background-color: rgb(216, 42, 42);
+    border: 1px solid rgb(170, 2, 2);
+}

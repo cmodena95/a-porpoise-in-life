@@ -1,7 +1,19 @@
+<h1>Applied bookings</h1>
+
 <% if policy(Booking).create? %>
     <ul>
-        <% @bookings.each do |booking| %>
-            <li><%= booking.porpoise.name %> (<%= booking.start_date %> to <%= booking.end_date %>)</li>
+        <% @applied_bookings.each do |booking| %>
+            <li class="flex"><%= booking.porpoise.name %> (<%= booking.start_date %> to <%= booking.end_date %>)
+                <% if booking.status == "pending" %>
+                    <div class="tag pending">Pending</div>
+                <% elsif booking.status == "accepted" %>
+                    <div class="tag accepted">Accepted</div>
+                <% else %>
+                    <div class="tag declined">Declined</div>
+                <% end %>
+            </li>
         <% end %>
     </ul>
 <% end %>
+
+<%= link_to "Back", index_path %>

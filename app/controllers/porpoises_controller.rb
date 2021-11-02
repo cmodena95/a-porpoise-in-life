@@ -37,6 +37,14 @@ class PorpoisesController < ApplicationController
         redirect_to porpoise_path(@porpoise)
     end
 
+    def destroy
+        @porpoise = Porpoise.find(params[:id])
+        @porpoise.destroy
+        authorize @porpoise
+    
+        redirect_to index_path
+    end
+
     private
 
     def porpoise_params
