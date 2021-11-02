@@ -8,4 +8,6 @@ Rails.application.routes.draw do
   get 'porpoises/:id', to: 'porpoises#show', as: :porpoise
   get 'porpoises/:id/edit', to: 'porpoises#edit', as: :edit_porpoise
   patch 'porpoises/:id', to: 'porpoises#update'
+
+  resources :bookings, only: [:index]
 end

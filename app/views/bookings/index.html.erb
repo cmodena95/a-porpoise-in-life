@@ -1,0 +1,7 @@
+<% if policy(Booking).create? %>
+    <ul>
+        <% @bookings.each do |booking| %>
+            <li><%= booking.porpoise.name %> (<%= booking.start_date %> to <%= booking.end_date %>)</li>
+        <% end %>
+    </ul>
+<% end %>
