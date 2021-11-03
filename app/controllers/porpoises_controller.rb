@@ -49,6 +49,6 @@ class PorpoisesController < ApplicationController
     private
 
     def porpoise_params
-        params.require(:porpoise).permit(:name, :location, :species, :price)
+        params.require(:porpoise).permit(:name, :location, :species, :price, :photo)
     end
 end

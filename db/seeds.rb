@@ -14,6 +14,8 @@ user = User.new(
 )
 p "#{user.email} was created"
 
+
+file = URI.open('https://images.unsplash.com/photo-1570481662006-a3a1374699e8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1065&q=80')
 porpoise = Porpoise.new(
     name: "louise",
     species: "vaquita",
@@ -21,6 +23,7 @@ porpoise = Porpoise.new(
     price: 10
 )
 porpoise.user = user
+porpoise.photo.attach(io: file, filename: 'porp1.png', content_type: 'image/png')
 porpoise.save
 
 p "#{porpoise.name} was created"

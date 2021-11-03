@@ -1,7 +1,9 @@
 <p><%= @porpoise.name %></p>
 <p><%= @porpoise.species %></p>
 <p><%= @porpoise.location %></p>
-<img src="<%= cl_image_path @porpoise.photo.key %>">
+<% if @porpoise.photo.attached? %>
+    <%= cl_image_tag @porpoise.photo.key, height: 300, width: 400, crop: :fill %>
+<% end %>
 <p>€<%= number_with_precision(@porpoise.price, precision: 2) %> per day</p>
 
 <%= simple_form_for ([@porpoise, @booking]) do |f| %>
