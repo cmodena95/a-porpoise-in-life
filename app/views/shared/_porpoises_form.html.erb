@@ -1,4 +1,4 @@
-<%= form_for(@porpoise) do |f| %>
+<%= simple_form_for(@porpoise) do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
   <%= f.label :location %>
@@ -7,5 +7,6 @@
   <%= f.text_field :species %>
   <%= f.label :price %>
   <%= f.number_field :price %>
+  <%= f.file_field :photo %>
   <%= f.submit %>
 <% end %>
