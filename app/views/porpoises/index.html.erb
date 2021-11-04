@@ -1,4 +1,17 @@
 <% if policy(Porpoise).create? %>
+
+    <div data-aos="fade-up"><h1>Hello</h1></div>
+    <div data-aos="fade-down-right"><h1>Porpoises</h1></div>
+
+    <%= form_tag porpoises_path, method: :get do %>
+        <%= text_field_tag :query,
+        params[:query],
+        class: "form-control",
+        placeholder: "Find a porpoise"
+        %>
+        <%= submit_tag "Search", class: "btn btn-primary" %>
+    <% end %>
+
     <ul>
         <% @porpoises.each do |porpoise| %>
             <%= link_to porpoise_path(porpoise.id) do %>
@@ -7,5 +20,12 @@
         <% end %>
     </ul>
 
+    <div id="map"
+     style="width: 100%; height: 600px;"
+     data-markers="<%= @markers.to_json %>"
+     data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"></div>
+
     <%= link_to "New porpoise", porpoises_new_path %>
+
+
 <% end %>

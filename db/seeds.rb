@@ -1,4 +1,5 @@
 # require 'faker'
+require "open-uri"
 
 p "destroying everything"
 User.destroy_all
@@ -23,7 +24,7 @@ porpoise = Porpoise.new(
     price: 10
 )
 porpoise.user = user
-porpoise.photo.attach(io: file, filename: 'porp1.png', content_type: 'image/png')
+porpoise.photos.attach(io: file, filename: 'porp1.png', content_type: 'image/png')
 porpoise.save
 
 p "#{porpoise.name} was created"

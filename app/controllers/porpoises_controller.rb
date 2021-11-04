@@ -1,12 +1,32 @@
 class PorpoisesController < ApplicationController
     def index
-        @porpoises = policy_scope(Porpoise).order(created_at: :desc)
+        if params[:query].present?
+            sql_query = "name ILIKE :query OR species ILIKE :query OR location ILIKE :query"
+            @porpoises = policy_scope(Porpoise.where(sql_query, query: "%#{params[:query]}%")).order(created_at: :desc).geocoded
+        else
+            @porpoises = policy_scope(Porpoise).order(created_at: :desc).geocoded
+        end
+
+        @markers = @porpoises.map do |porpoise|
+            {
+              lat: porpoise.latitude,
+              lng: porpoise.longitude,
+              info_window: render_to_string(partial: "info_window", locals: { porpoise: porpoise }),
+              image_url: helpers.asset_url('flower.png')
+            }
+        end
     end
     
     def show
         @porpoise = Porpoise.find(params[:id])
         @booking = Booking.new
         authorize @porpoise
+
+        @markers = [{
+            lat: @porpoise.latitude,
+            lng: @porpoise.longitude,
+            infoWindow: { content: render_to_string(partial: "info_window", locals: { porpoise: @porpoise }) }
+          }]
     end
 
     def new
@@ -49,6 +69,6 @@ class PorpoisesController < ApplicationController
     private
 
     def porpoise_params
-        params.require(:porpoise).permit(:name, :location, :species, :price, :photo)
+        params.require(:porpoise).permit(:name, :location, :species, :price, photos: [])
     end
 end

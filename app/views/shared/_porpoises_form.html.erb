@@ -7,6 +7,6 @@
   <%= f.text_field :species %>
   <%= f.label :price %>
   <%= f.number_field :price %>
-  <%= f.file_field :photo %>
+  <%= f.input :photos, as: :file, input_html: { multiple: true } %>
   <%= f.submit %>
 <% end %>
