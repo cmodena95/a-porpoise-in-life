@@ -8,11 +8,15 @@
 <% end %>
 <p>€<%= number_with_precision(@porpoise.price, precision: 2) %> per day</p>
 
-<%= simple_form_for ([@porpoise, @booking]) do |f| %>
-    <%= f.input :start_date %>
-    <%= f.input :end_date %>
-    <%= f.submit "Book #{@porpoise.name}", class: "" %>
-<% end %>
+<div class="col-6">
+  <% if policy(Booking.new(user: current_user, porpoise: @porpoise)).new? %>
+    <%= simple_form_for ([@porpoise, @booking]) do |f| %>
+        <%= f.input :start_date, as: :string, input_html: { data: { controller: "flatpickr" } } %>
+        <%= f.input :end_date, as: :string, input_html: { data: { controller: "flatpickr" } } %>
+        <%= f.submit "Book #{@porpoise.name}", class: "" %>
+    <% end %>
+  <% end %>
+</div>
 
   <div class="map-container">
     <div id="map"

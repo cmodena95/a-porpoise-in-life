@@ -20,6 +20,7 @@ class PorpoisesController < ApplicationController
     def show
         @porpoise = Porpoise.find(params[:id])
         @booking = Booking.new
+        # ^ to give to simple_form_for
         authorize @porpoise
 
         @markers = [{
@@ -31,6 +32,7 @@ class PorpoisesController < ApplicationController
 
     def new
         @porpoise = Porpoise.new
+        # ^ to give to simple_form_for
         authorize @porpoise
     end
 

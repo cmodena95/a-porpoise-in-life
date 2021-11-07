@@ -6,7 +6,8 @@ class PorpoisePolicy < ApplicationPolicy
   end
 
   def create?
-    return true
+    user.present?
+    # ^ returns 'true'
   end
 
   def show?

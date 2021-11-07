@@ -4,7 +4,9 @@ class ApplicationController < ActionController::Base
 
     include Pundit
     after_action :verify_authorized, except: :index, unless: :skip_pundit?
+    # add pundit for the non-index actions, unless otherwise specified
     after_action :verify_policy_scoped, only: :index, unless: :skip_pundit?
+    # add pundit for index actions, unless otherwise specified
   
     rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
@@ -23,5 +25,7 @@ class ApplicationController < ActionController::Base
 
     def skip_pundit?
       devise_controller? || params[:controller] =~ /(^(rails_)?admin)|(^pages$)/
+      # skip_pundit if it's from devise controller (log in, sign up etc)
+      # OR if from pages or admin controller (e.g., home page, rails admin gem, localhost/admin)
     end
 end

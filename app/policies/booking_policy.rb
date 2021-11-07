@@ -6,7 +6,8 @@ class BookingPolicy < ApplicationPolicy
   end
 
   def create?
-    return true
+    user.present? && record.porpoise.user != user
+    # ^ user is unable to book their own porpoise
   end
 
   def show?
