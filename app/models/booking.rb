@@ -25,13 +25,13 @@ class Booking < ApplicationRecord
     # ^ return nothing
 
     if end_date < start_date
-      errors.add(:end_date, 'End date must not be before start date')
+      errors.add(:end_date, 'must not be before start date')
     end
   end
 
   def not_past_date
     if self.start_date < Date.today
-      errors.add(:start_date, 'Cannot be in the past')
+      errors.add(:start_date, 'cannot be in the past')
     end
   end
 end
