@@ -12,6 +12,8 @@ class BookingsController < ApplicationController
         if @booking.save
             redirect_to dashboard_path
         else
+            @booking.start_date = @booking.start_date
+            @booking.end_date = @booking.end_date
             render "porpoises/show"
         end
         authorize @booking
@@ -19,16 +21,10 @@ class BookingsController < ApplicationController
 
     def update
         @booking = Booking.find(params[:id])
-        if params[:query] == "accepted"
-          @booking.status = "accepted"
-          @booking.save
-          redirect_to bookings_path
-        elsif params[:query] == "declined"
-          @booking.status = "declined"
-          @booking.save
-          redirect_to bookings_path
-        end
-        authorize @booking
+		authorize @booking
+        @booking.send("#{params[:status]}!")
+        # @booking.send("accepted!") => @booking.accepted! => enum
+        redirect_to dashboard_path
     end
 
     private

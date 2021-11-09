@@ -15,10 +15,10 @@ class BookingPolicy < ApplicationPolicy
   end
 
   def update?
-    record.user == user
+    user == record.porpoise.user && record.is_updatable?
   end
 
   def destroy?
-    record.user == user
+    record.is_updatable?
   end
 end
