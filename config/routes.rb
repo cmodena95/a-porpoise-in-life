@@ -11,10 +11,12 @@ Rails.application.routes.draw do
   delete 'porpoises/:id', to: 'porpoises#destroy'
 
   resources :porpoises do
-    resources :bookings, only: [:create]
+    resources :bookings, only: [:new, :create]
   end
 
-  resources :bookings, only: [:update]
+  resources :bookings, only: [:destroy, :update, :show] do
+    resources :reviews, only: [:new, :create]
+  end
 
   resource :dashboard, only: [:show]
 end

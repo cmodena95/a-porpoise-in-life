@@ -1,7 +1,7 @@
 class Porpoise < ApplicationRecord
-  # include PgSearch::Model
-  # pg_search_scope :search_by_name_and_description,
-  #   against: [ :name, :description ],
+  include PgSearch::Model
+  # pg_search_scope :search_by_name_description_species_and_location,
+  #   against: [ :name, :description, :species, :location ],
   #   using: {
   #     tsearch: { prefix: true }
   #   }

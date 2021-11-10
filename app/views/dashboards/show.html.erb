@@ -2,13 +2,16 @@
 
 <ul>
     <% @applied_bookings.each do |booking| %>
-        <li class="flex"><%= booking.porpoise.name %> (<%= booking.start_date %> to <%= booking.end_date %>)
-            <% if booking.status == "pending" %>
-                <div class="tag pending">Pending</div>
-            <% elsif booking.status == "accepted" %>
-                <div class="tag accepted">Accepted</div>
-            <% else %>
-                <div class="tag declined">Declined</div>
+        <li class="flex">
+            <%= link_to booking_path(booking.id) do %>
+                <%= booking.porpoise.name %> (<%= booking.start_date %> to <%= booking.end_date %>)
+                <% if booking.status == "pending" %>
+                    <div class="tag pending">Pending</div>
+                <% elsif booking.status == "accepted" %>
+                    <div class="tag accepted">Accepted</div>
+                <% else %>
+                    <div class="tag declined">Declined</div>
+                <% end %>
             <% end %>
         </li>
     <% end %>
@@ -18,18 +21,21 @@
 <h1>Received bookings</h1>
 <ul>
     <% @received_bookings.each do |booking| %>
-        <li class="flex"><%= booking.porpoise.name %> (<%= booking.start_date %> to <%= booking.end_date %>)
-            <% if booking.status == "pending" %>
-                <% if policy(booking).update? %>
-                    <%= link_to "Accept", booking_path(booking, { status: "accepted"}),
-                method: :patch, class: "badge badge-primary" %>
-                    <%= link_to "Decline", booking_path(booking, { status: "declined"}),
-                method: :patch, class: "badge badge-danger" %>
+        <li class="flex">
+            <%= link_to booking_path(booking.id) do %>
+                <%= booking.porpoise.name %> (<%= booking.start_date %> to <%= booking.end_date %>)
+                <% if booking.status == "pending" %>
+                    <% if policy(booking).update? %>
+                        <%= link_to "Accept", booking_path(booking, { status: "accepted"}),
+                    method: :patch, class: "badge badge-primary" %>
+                        <%= link_to "Decline", booking_path(booking, { status: "declined"}),
+                    method: :patch, class: "badge badge-danger" %>
+                    <% end %>
+                <% elsif booking.status == "accepted" %>
+                    <div class="tag accepted">Accepted</div>
+                <% elsif booking.status == "declined" %>
+                    <div class="tag declined">Declined</div>
                 <% end %>
-            <% elsif booking.status == "accepted" %>
-                <div class="tag accepted">Accepted</div>
-            <% elsif booking.status == "declined" %>
-                <div class="tag declined">Declined</div>
             <% end %>
         </li>
     <% end %>
