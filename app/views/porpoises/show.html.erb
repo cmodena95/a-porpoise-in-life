@@ -10,12 +10,31 @@
 
 <div class="col-6">
   <% if policy(Booking.new(user: current_user, porpoise: @porpoise)).new? %>
-    <%= simple_form_for ([@porpoise, @booking]) do |f| %>
-        <%= f.input :start_date, as: :string, input_html: { data: { controller: "flatpickr" } } %>
-        <%= f.input :end_date, as: :string, input_html: { data: { controller: "flatpickr" } } %>
-        <%= f.submit "Book #{@porpoise.name}", class: "" %>
-    <% end %>
+    <div class="container col-4" data-controller="price-update">
+      <%= simple_form_for [@porpoise, @booking] do |f| %>
+        <%= f.input :start_date,
+              as: :string,
+              input_html: {
+                data: {
+                  controller: "flatpickr",
+                  price_update_target: "start"
+                } } %>
+        <%= f.input :end_date,
+              as: :string,
+              input_html: {
+                data: {
+                  price_update_target: "end"
+                } } %>
+        <%= f.submit %>
+      <% end %>
+
+      <p><strong>Price: </strong>$<span data-price-update-target="price"><%= @porpoise.price %></span> / day</p>
+      <div class="price-box" data-price-update-target="box">
+        <p><strong>Total price: </strong>$<span data-price-update-target="total">XXX</span></p>
+      </div>
+    </div>
   <% end %>
+
 </div>
 
   <div class="map-container">
