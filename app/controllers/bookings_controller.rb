@@ -1,6 +1,7 @@
 class BookingsController < ApplicationController
     def show
         @booking = Booking.find(params[:id])
+        @review = Review.new
         authorize @booking
     end
 
@@ -29,6 +30,14 @@ class BookingsController < ApplicationController
 		authorize @booking
         @booking.send("#{params[:status]}!")
         # @booking.send("accepted!") => @booking.accepted! => enum
+        redirect_to dashboard_path
+    end
+
+    def destroy
+        @booking = Booking.find(params[:id])
+        @booking.destroy
+        authorize @booking
+    
         redirect_to dashboard_path
     end
 

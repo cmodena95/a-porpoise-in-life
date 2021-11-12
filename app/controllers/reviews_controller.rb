@@ -14,7 +14,7 @@ class ReviewsController < ApplicationController
     if @review.save
       redirect_to dashboard_path, notice: "Review submitted!"
     else
-      render :new
+      render "bookings/show"
     end
   end
 
